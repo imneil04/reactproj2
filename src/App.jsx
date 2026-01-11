@@ -7,6 +7,7 @@ import Contact from "./components/Contact.jsx";
 import Navbar from './components/Navbar.jsx';
 import Login from "./components/Login.jsx";
 import SignUp from "./components/Signup.jsx";
+import Footer from './components/Footer.jsx';
 
 
 export default function App() {
@@ -15,14 +16,15 @@ export default function App() {
   return (
     <>
       <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/menu" element={<Menu />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
-      </Routes>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/menu" element={<Menu />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+        </Routes>
+      <Footer />
     </>
   )
 }
