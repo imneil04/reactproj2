@@ -8,6 +8,7 @@ import Navbar from './components/Navbar.jsx';
 import Login from "./components/Login.jsx";
 import SignUp from "./components/Signup.jsx";
 import Footer from './components/Footer.jsx';
+import FAQs from "./components/FAQs.jsx";
 
 
 export default function App() {
@@ -23,6 +24,7 @@ export default function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/faqs" element={<FAQs />} />
         </Routes>
       <Footer />
     </>
