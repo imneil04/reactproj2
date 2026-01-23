@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
+import { useCart } from "../context/CartContext";
 
 export default function Navbar () {
 
@@ -7,6 +8,9 @@ export default function Navbar () {
     const [open, setOpen] = useState(false);
     const [memberOpen, setMemberOpen] = useState(false);
     const memRef = useRef(null);
+
+    const { cart } = useCart();
+    const totalItems = cart.reduce((sum, i) => sum + i.quantity, 0);
 
     //close member drop down when clicked
     useEffect(() => {
@@ -23,15 +27,16 @@ export default function Navbar () {
         <>
             <nav className="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur">
                 <div className="max-w-7xl mx-auto px-6">
-                    <div className="flex h-15 items-center justify-between">
+                    {/**Main container for logo,menu links, and member links */}
+                    <div className="flex h-15 items-center">
 
                         {/**Logo */}
                         <Link to="/" className="text-xl font-semibold tracking-wide">
                             Café<span className="text-amber-500">.</span>
                         </Link>
 
-                        {/**Desktop Menu */}
-                        <div className="hidden md:flex items-center gap-8">
+                        {/**Desktop Menu - CENTER */}
+                        <div className="hidden md:flex flex-1 justify-center items-center gap-8">
                             {["Home","Menu","About","Contact"].map((item) =>(
                                 <Link key={item} to={`/${item.toLowerCase()}`}
                                 className="text-sm font-medium text-gray-700 transition hover:text-black relative
@@ -41,8 +46,8 @@ export default function Navbar () {
                         </div>
 
                         {/**Right section */}
-                        <div className="flex items-center gap-4">
-                            {/**Member drop down */}
+                        <div className="flex items-center gap-2 ml-auto">
+                                {/**Member drop down */}
                                 <div ref={memRef} className="relative hidden md:block">
                                     <button onClick={() => setMemberOpen(!memberOpen)}
                                             className="flex items-center gap-2 text-sm 
@@ -72,6 +77,20 @@ export default function Navbar () {
                                         onClick={() => setOpen(!open)}>
                                     <i class="fa-brands fa-elementor"></i>
                                 </button>
+
+                                {/**Item cart */}
+                                <Link to="/cart" className="relative">
+                                    <i class="fa-solid fa-cart-shopping"></i>
+                                    {totalItems > 0 && (
+                                        <span className="absolute 
+                                        -top-2 -right-2 
+                                        bg-red-500 
+                                        text-white 
+                                        text-xs rounded-full min-w-[18px] h-[18px] flex items-center justify-center rounded-full">
+                                            {totalItems}
+                                        </span>
+                                    )}
+                                </Link> 
                         </div>
                     </div>
 
