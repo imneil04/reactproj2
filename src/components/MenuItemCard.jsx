@@ -7,7 +7,7 @@ export default function MenuItemCard({ item }) {
     const quantity = cartItem?.quantity || 0;
 
     return (
-        <div className="rounded-xl overflow-hidden bg-white shadow-sm hover:shadow-md transition">
+        <div className="rounded-xl overflow-hidden bg-white shadow-sm hover:shadow-md transition px-2 py-2">
            {/**
             *  <div>
                 <h3 className="font-semibold">{item.name}</h3>

@@ -10,6 +10,11 @@ import food2 from "../images/foods/fd2.png";
 import food3 from "../images/foods/fd3.png";
 import food4 from "../images/foods/fd4.png";
 import food5 from "../images/foods/fd5.png";
+//desserts
+import dessert1 from "../images/desserts/ds1.png";
+import dessert2 from "../images/desserts/ds2.png";
+import dessert3 from "../images/desserts/ds3.png";
+import dessert4 from "../images/desserts/ds4.png";
 
 export const menuData = {
     drinks: [
@@ -28,9 +33,9 @@ export const menuData = {
         { id: 11, name: "Waffles and Egg", price: 7.5, image: food5 }
     ],
     desserts: [
-        { id: 12, name: " Strawberry Cheesecake", price: 5.0 },
-        { id: 13, name: "Ice Cream and Mochi", price: 7.5 },
-        { id: 14, name: "Egg Pie", price: 5.5 },
-        { id: 15, name: "Cherry Cream Cookies", price: 6.5 }
+        { id: 12, name: " Strawberry Cheesecake", price: 5.0, image: dessert1 },
+        { id: 13, name: "Ice Cream and Mochi", price: 7.5, image: dessert2 },
+        { id: 14, name: "Egg Pie", price: 5.5, image: dessert3 },
+        { id: 15, name: "Cherry Cream Cookies", price: 6.5, image: dessert4 }
     ]
 };
