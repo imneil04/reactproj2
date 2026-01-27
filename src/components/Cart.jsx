@@ -5,13 +5,20 @@ import ConfirmModal from "../components/ConfirmationModal";
 
 export default function Cart() {
     const { cart, clearCart } = useCart();
+    
+    //const cartItems = Object.values(cart);
+
+    //for pre-modal confirmation (pre-check order submission)
     const [ showConfirm, setShowConfirm ] = useState(false);
     const [ success, setSuccess ] = useState(false);
 
-    const subtotal = cart.reduce((sum, i) => sum + i.price * i.quantity, 0);
-    
+    //cart items
+    const subtotal = cart.reduce((sum, i) => sum + i.price * i.quantity, 0)
+
+    //total pre-tax applied
     const subTax = (subtotal * 0.05);
 
+    //overall total
     const total = (subtotal + subTax);
 
     const confirmOrder = () => {
@@ -19,7 +26,7 @@ export default function Cart() {
         setShowConfirm(false);
         setSuccess(true);
     };
-
+    //what to display or render
     return (
         <>
             <div className="max-w-xl mx-auto p-6">

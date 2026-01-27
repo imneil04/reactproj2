@@ -1,6 +1,44 @@
-import { act, Children, createContext, useContext, useReducer } from "react";
+import { act, Children, createContext, useContext, useReducer, useState } from "react";
 
 const CartContext = createContext();
+
+//export const useCart = () => useContext(CartContext);
+
+/*export function CartProvider({ children }) {
+    const [cart, setCart] = useState({}); 
+
+    const addItem = (item) => {
+        setCart(prev => ({
+            ...prev, [item.id] : { ...item, qty: prev[item.id]?.qty + 1 || 1, }
+        }));
+    };
+
+    const removeItem = (id) => {
+        setCart(prev => {
+            if (!prev[id])
+                return prev;
+
+            const newQty = prev[id].qty - 1;
+            if (newQty <= 0) {
+                const updated = { ...prev };
+                delete updated[id];
+                return updated;
+            }
+
+            return {
+                ...prev,[id]: { ...prev[id], qty: newQty }
+            };
+        });
+    };
+
+    const clearCart = () => setCart({});
+
+    return (
+        <CartContext.Provider value={{ cart, addItem, removeItem, clearCart }}>
+            {children}
+        </CartContext.Provider>
+    );
+} */
 
 const cartReducer = (state, action) => {
     switch (action.type) {
@@ -21,6 +59,7 @@ const cartReducer = (state, action) => {
             ).filter(i => i.quantity > 0); 
         }
 
+        
         case "CLEAR":
             return [];
 
@@ -28,7 +67,8 @@ const cartReducer = (state, action) => {
             return state;
 
     }
-};
+}; 
+
 
 export const CartProvider = ({ children }) => {
     const [ cart, dispatch ] = useReducer(cartReducer, []);

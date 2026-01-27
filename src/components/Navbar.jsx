@@ -79,18 +79,20 @@ export default function Navbar () {
                                 </button>
 
                                 {/**Item cart */}
-                                <Link to="/cart" className="relative">
-                                    <i class="fa-solid fa-cart-shopping"></i>
-                                    {totalItems > 0 && (
-                                        <span className="absolute 
-                                        -top-2 -right-2 
-                                        bg-red-500 
-                                        text-white 
-                                        text-xs rounded-full min-w-[18px] h-[18px] flex items-center justify-center rounded-full">
-                                            {totalItems}
-                                        </span>
-                                    )}
-                                </Link> 
+                                {totalItems > 0 && (
+                                    <Link to="/cart" className="relative">
+                                        <i class="fa-solid fa-cart-shopping"></i>
+                                        {totalItems > 0 && (
+                                            <span className="absolute 
+                                            -top-2 -right-2 
+                                            bg-red-500 
+                                            text-white 
+                                            text-xs rounded-full min-w-[18px] h-[18px] flex items-center justify-center rounded-full">
+                                                {totalItems}
+                                            </span>
+                                        )}
+                                    </Link> 
+                                )}
                         </div>
                     </div>
 
