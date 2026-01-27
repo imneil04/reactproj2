@@ -25,9 +25,9 @@ export default function Footer () {
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-x-7 text-sm">
                             <ul className="space-y-2 text-sm">
                                 <li><Link to="/" className="hover:text-white transition">Home</Link></li>
-                                <li><Link to="#" className="hover:text-white transition">Menu Items</Link></li>
+                                <li><Link to="/menu" className="hover:text-white transition">Menu Items</Link></li>
                                 <li><Link to="/about" className="hover:text-white transition">About Us</Link></li>
-                                <li><Link to="#" className="hover:text-white transition">Reach out to Us</Link></li>
+                                <li><Link to="/contact" className="hover:text-white transition">Reach out to Us</Link></li>
                             </ul>
 
                             <ul className="space-y-2 text-sm">
