@@ -45,14 +45,14 @@ export default function FAQ () {
     return (
         <>
            
-           <section className="min-h-screen bg-gray-50 py-16 px-4">
+           <section className="min-h-screen bg-gray-50 py-16 px-4 mt-15">
                 <div className="max-w-3xl mx-auto">
 
                     {/**Header */}
                     <h1 className="text-4xl font-bold text-center mb-4">
                         Frequently Asked Questions <i class="fa-solid fa-circle-question"></i>
                     </h1>
-                    <p className="text-center text-gray-600 mb-12">
+                    <p className="text-center text-gray-500 mb-12">
                         Find answers to common questions about our cafe.
                     </p>
 

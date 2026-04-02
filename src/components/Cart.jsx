@@ -44,7 +44,7 @@ export default function Cart() {
 
                 {cart.length > 0 && (
                     <>
-                        <div className="flex flex-col justify-end">
+                        <div className="flex flex-col">
                             {/**subtotal (pre-tax) */}
                             <p className="mt-6">
                             Subtotal: ${subtotal.toFixed(2)}

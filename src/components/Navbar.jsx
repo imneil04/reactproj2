@@ -34,7 +34,7 @@ export default function Navbar () {
                         <Link to="/" className="text-xl font-semibold tracking-wide">
                             Café<span className="text-amber-500">.</span>
                         </Link>
-
+                        
                         {/**Desktop Menu - CENTER */}
                         <div className="hidden md:flex flex-1 justify-center items-center gap-8">
                             {["Home","Menu","About","Contact"].map((item) =>(
@@ -118,6 +118,14 @@ export default function Navbar () {
                             </div>
                         </div>
                     )}
+                </div>
+
+                {/**Custome note: for better UI experience */}
+                <div className="lg:hidden 
+                                px-2 py-2
+                                bg-gray-600
+                                text-white text-sm">
+                    For better overall UI experience please open the website on a laptop or PC web browser.
                 </div>
             </nav>
         </>
