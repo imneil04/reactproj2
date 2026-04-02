@@ -1,3 +1,4 @@
+//drinks
 import drink1 from "../images/drinks/hl1.png";
 import drink2 from "../images/drinks/ht1.png";
 import drink3 from "../images/drinks/capp1.png";

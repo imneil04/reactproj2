@@ -5,15 +5,20 @@ export default function CartItem({ item }) {
 
     return (
         <>
+            
            <div className="flex justify-between items-center">
-                <div>
-                    <p>{item.name}</p>
-                    <p className="text-sm text-gray-500">
-                        ${(item.price * item.quantity).toFixed(2)}
+                {/**item info */}
+                <div className="flex items-center shadow-lg pr-2 text-xs rounded-xl md:text-sm lg:w-xs">
+                    <img src={item.image} alt={item.name} className="w-14 h-15 rounded-lg" />
+                    <p className="font-semibold">{item.name}</p>
+                    
+                    <p className="text-sm text-amber-500 font-medium ml-4">
+                            ${(item.price * item.quantity).toFixed(2)}
                     </p>
                 </div>
 
-                <div className="flex gap-3 items-center">
+                {/**item quantity */}
+                <div className="flex gap-3 items-center text-xs md:text-sm">
                     <button onClick={() => removeItem(item.id)} 
                     className="px-3 py-1 bg-gray-200 
                                rounded 

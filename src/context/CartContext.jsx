@@ -1,6 +1,8 @@
-import { act, Children, createContext, useContext, useReducer, useState } from "react";
+import { act, Children, createContext, useContext, useEffect, useReducer, useState } from "react";
 
 const CartContext = createContext();
+
+const CART_KEY = "cafe_cart"; //for localStorage (persist items in cart) item ID
 
 //export const useCart = () => useContext(CartContext);
 
@@ -59,6 +61,9 @@ const cartReducer = (state, action) => {
             ).filter(i => i.quantity > 0); 
         }
 
+        case "SET":
+            return action.payload;
+
         
         case "CLEAR":
             return [];
@@ -69,9 +74,25 @@ const cartReducer = (state, action) => {
     }
 }; 
 
+//Load from localStorage (runs once)
+const getInitialCart = () => {
+    try {
+        const stored = localStorage.getItem(CART_KEY);
+        return stored ? JSON.parse(stored) : [];
+    }
+    catch {
+        return [];
+    }
+};
+
 
 export const CartProvider = ({ children }) => {
-    const [ cart, dispatch ] = useReducer(cartReducer, []);
+    const [ cart, dispatch ] = useReducer(cartReducer, [], getInitialCart);
+
+    //save to localStorage whenever cart changes
+    useEffect(() => {
+        localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    }, [cart]);
 
     const addItem = item => dispatch({ type: "ADD", item });
     const removeItem = id => dispatch({ type: "REMOVE", id });

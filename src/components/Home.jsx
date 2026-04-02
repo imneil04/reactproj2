@@ -38,7 +38,8 @@ export default function Home () {
     
     return (
         <>
-            <div className="relative h-[30vh] md:h-[70vh] overflow-hidden max-w-7xl mx-auto shadow-xl/20  mt-2">
+            {/**Carousel slides */}
+            <div className="relative h-[30vh] md:h-[70vh] overflow-hidden max-w-7xl mx-auto shadow-xl/20  mt-10">
                 {slides.map((slide, index) => (
                     <div key={index} className={`absolute inset-0 transition-opacity duration-600 
                         ${index === current ? "opacity-100" : "opacity-0"}`}>
