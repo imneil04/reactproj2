@@ -78,7 +78,7 @@ export default function Footer () {
                 {/**Bottom bar */}
                 <div className="border-t border-white/30 text-center py-4 text-sm text-white">
                     <div>
-                        {new Date().getFullYear()} Placeholder (name goes here). All rights reserved.
+                        {new Date().getFullYear()} Placeholder (name goes here).
                     </div>
                     <div>
                         Personal project of Mark del Rosario.
