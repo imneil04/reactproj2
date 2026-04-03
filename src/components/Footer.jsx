@@ -32,11 +32,10 @@ export default function Footer () {
 
                             <ul className="space-y-2 text-sm">
                                 <li><Link to="/faqs" className="hover:text-white transition">FAQs</Link></li>
-                                <li><Link to="#" className="hover:text-white transition">More Questions</Link></li>
+                                <li><Link to="/careers" className="hover:text-white transition">Careers</Link></li>
                             </ul>
 
                             <ul className="space-y-2 text-sm">
-                                <li><Link to="/careers" className="hover:text-white transition">Careers</Link></li>
                                 <li><Link to="#" className="hover:text-white transition">Future Plans</Link></li>
                                 <li><Link to="#" className="hover:text-white transition">Terms and Conditions</Link></li>  
                             </ul>
@@ -78,7 +77,12 @@ export default function Footer () {
 
                 {/**Bottom bar */}
                 <div className="border-t border-white/30 text-center py-4 text-sm text-white">
-                    {new Date().getFullYear()} Cafe bookish. All rights reserved.
+                    <div>
+                        {new Date().getFullYear()} Placeholder (name goes here). All rights reserved.
+                    </div>
+                    <div>
+                        Personal project of Mark del Rosario.
+                    </div>
                 </div>
             </footer>
         </>

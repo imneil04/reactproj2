@@ -90,7 +90,7 @@ export default function SignUp () {
                                className="w-full mt-1 p-1 border rounded-lg"
                         />
                         {errors.name && (
-                            <p className="text-sm text-red-500 mt-1">{errors.name}</p>
+                            <p className="text-sm text-red-500 mt-2">{errors.name}</p>
                         )}
                     </div>
 
@@ -108,7 +108,7 @@ export default function SignUp () {
                                className="w-full mt-1 p-1 border rounded-lg"
                         />
                         {errors.phone && (
-                            <p className="text-sm text-red-500 mt-1">{errors.phone}</p>
+                            <p className="text-sm text-red-500 mt-2">{errors.phone}</p>
                         )}
                     </div>
 
@@ -125,7 +125,7 @@ export default function SignUp () {
                                className="w-full mt-1 p-1 border rounded-lg"
                         />
                         {errors.email && (
-                            <p className="text-sm text-red-500 mt-1">{errors.email}</p>
+                            <p className="text-sm text-red-500 mt-2">{errors.email}</p>
                         )}
                     </div>
 
