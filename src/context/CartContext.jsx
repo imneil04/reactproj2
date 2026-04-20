@@ -11,7 +11,7 @@ const CartContext = createContext();
 const CART_KEY = "cafe_cart"; 
 
 const cartReducer = (state, action) => {
-    console.log("reducer action: ", action);
+    //console.log("reducer action: ", action);
 
     switch (action.type) {
         case "ADD": {
@@ -92,7 +92,7 @@ export const CartProvider = ({ children }) => {
 
     //reset init flag - runs on user change
     useEffect(() => {
-        console.log("user changed, reset init flag.");
+        //console.log("user changed, reset init flag.");
         
         hasInitializedRef.current = false;
     }, [user]);
@@ -151,8 +151,8 @@ export const CartProvider = ({ children }) => {
                     image: menuMap[item.id]?.image || "/images/placeholder.png"
                 }))
 
-                console.log("Final cart before dispatch: ", finalCart);
-                console.log("Cart with images", cartWithImages);
+                //console.log("Final cart before dispatch: ", finalCart);
+                //console.log("Cart with images", cartWithImages);
 
                 //dispatch ({ type: "SET", payload: finalCart });
                 //load cart items re-attaching with the image logo
@@ -160,7 +160,6 @@ export const CartProvider = ({ children }) => {
                 dispatch ({ type: "SET", payload: cartWithImages });
 
                 hasInitializedRef.current = true;
-      
             }
             catch (err) {
                 console.log("Error loading cart:", err);
@@ -194,7 +193,7 @@ export const CartProvider = ({ children }) => {
                 { cart: cleanCart }, 
                 { merge: true });
 
-                console.log("debounced sync: ", cleanCart);
+                //console.log("debounced sync: ", cleanCart);
             }
             catch (err) {
                 console.error("Sync failed: ", err);
