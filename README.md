@@ -6,7 +6,7 @@
 3. Font awesome (for icons)
 
 #objective
-- To create and develop a modern front-end application that showcases minimal elements yet effective and easy-to-navigate to.
+- To showcase mark's continuous learning and growth in coding by means of proactively developing a modern and responsive front-end application.
 
 #features
 1. navbar that has key menus (home, menu, about, contact us, login, and sign up page)
