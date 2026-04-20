@@ -1,18 +1,23 @@
-import { React, useState } from "react";
+import { useState } from "react";
 import feedback from "../images/contact_desc/feedback_desc.png";
+import { db } from "../js/firebase";
+import { addDoc, collection } from "firebase/firestore";
 
 
 export default function Contact () {
     const [ formData, setFormData ] = useState({
         name : "",
         email: "",
-        date: "",
+        //date: "",
         phone: "",
         message: "",
     });
 
     //custom error msg
     const [ errors, setErrors ] = useState ({});
+
+    //for custom feedback description
+    const [successMessage, setSuccessMessage] = useState("");
 
     //custom error msg
     const validate = () => {
@@ -39,6 +44,11 @@ export default function Contact () {
             newErrors.phone = "Invalid phone number, cannot contain characters or letters.";
         }
 
+        //feedback field check
+        if (!formData.message.trim()) {
+            newErrors.message = "Feedback is required.";
+        }
+
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
@@ -47,30 +57,55 @@ export default function Contact () {
         setFormData ({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e) => {
+    //modified to include async call for firestore
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (!validate())
             return;
+
 
         const confirmSubmit = window.confirm 
         ("Are you sure you want to submit this message?");
     
         if (!confirmSubmit)
             return;
+        
+        //save to firestore
+        try {
+            await addDoc(collection(db,"contacts"), {
+                ...formData, createdAt: new Date(),
+            })
+
+            //alert("Message sent successfully!");
+            setSuccessMessage("📣 Your feedback has been received successfully!");
+
+            setFormData({
+                name: "",
+                email: "",
+                //date: "",
+                phone: "",
+                message: "",
+            });
+            setErrors({});
+        }
+        catch (err) {
+            console.log(err.message);
+            alert("Something went wrong.");
+        }
 
         //handle submission (API, email service, etc.)
-        console.log("Submitted data: ", formData);
+        //console.log("Submitted data: ", formData);
 
-        alert("Message sent successfully!");
+        //alert("Message sent successfully!");
 
-        setFormData({
+        /*setFormData({
             name: "",
             email: "",
             date: "",
             phone: "",
             message: "",
         });
-        setErrors({}); // for custom msg added line
+        setErrors({}); // for custom msg added line  */
     };
 
     return (
@@ -84,11 +119,16 @@ export default function Contact () {
                     {/**FORMS SECTION */}
                     <div className="p-8">
                         <div className="flex">
-                            <h2 className="text-2xl font-bold mb-2">Contact Us <i className="fa-solid fa-phone-volume"></i></h2>
+                            <h2 className="text-2xl font-bold mb-2 text-cyan-500">Contact Us <i className="fa-solid fa-phone-volume"></i></h2>
                         </div>
                         <p className="text-gray-500 mb-6">
                             Have questions or request? Please fill out the form below.
                         </p>
+
+                        {/**custom success sign-up msg */}
+                        {successMessage && (
+                            <p className="text-green-500 text-center mb-4 animate-pulse">{successMessage}</p>
+                        )}
 
                         <form onSubmit={handleSubmit} className="space-y-4">
                             {/**name field */}
@@ -109,10 +149,6 @@ export default function Contact () {
                                 )}
                             </div>
                             
-                            {/**date field */}
-                            <input type="date" name="date" value={formData.date} onChange={handleChange}
-                            className="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500" />
-
                             {/**phone field */}
                             <div>
                                 <input type="tel" name="phone" placeholder="Phone Number..." value={formData.phone} onChange={handleChange}
@@ -122,12 +158,17 @@ export default function Contact () {
                                 )}
                             </div>
 
-                            <textarea name="message" 
-                            placeholder="Enter Comments or Message Here..."
-                            rows="5"
-                            value={formData.message}
-                            onChange={handleChange}
-                            className="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+                            <div>
+                                <textarea name="message" 
+                                placeholder="Enter Comments or Message Here..."
+                                rows="5"
+                                value={formData.message}
+                                onChange={handleChange}
+                                className="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+                                {errors.message && (
+                                <p className="text-sm text-red-500 mt-2">{errors.message}</p>
+                                )}
+                            </div>
 
                             <button type="submit" 
                             className="w-full bg-gray-500 hover:bg-emerald-500 

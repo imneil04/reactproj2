@@ -1,6 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { useCart } from "../context/CartContext";
+import { useAuth } from "../context/AuthContext";
+import { signOut } from "firebase/auth";
+import { auth } from "../js/firebase";
 
 export default function Navbar () {
 
@@ -9,7 +12,29 @@ export default function Navbar () {
     const [memberOpen, setMemberOpen] = useState(false);
     const memRef = useRef(null);
 
-    const { cart } = useCart();
+    //for login-logout 
+    const { user, userData } = useAuth(); //custom hook
+    const navigate = useNavigate();
+
+    const { cart, clearCart } = useCart();
+
+    //logout function (redirects to login page)
+    const handleLogout = async () => {
+        await signOut(auth);
+
+        //timeout gives firebase a moment to update state
+        setTimeout(() => {
+                navigate("/login", { 
+                replace: true, 
+                state: { message: "✅ Logout successful!" } 
+            }); //redirect after logout and post status msg
+        }, 200);
+
+        clearCart(); // clears cart upon logout
+    };
+
+
+    
     const totalItems = cart.reduce((sum, i) => sum + i.quantity, 0);
 
     //close member drop down when clicked
@@ -47,8 +72,10 @@ export default function Navbar () {
 
                         {/**Right section */}
                         <div className="flex items-center gap-2 ml-auto">
-                                {/**Member drop down */}
+
+                                {/**Member drop down - desktop */}
                                 <div ref={memRef} className="relative hidden md:block">
+                                   
                                     <button onClick={() => setMemberOpen(!memberOpen)}
                                             className="flex items-center gap-2 text-sm 
                                                     font-medium text-gray-700 hover:text-black cursor-pointer">
@@ -58,15 +85,44 @@ export default function Navbar () {
 
                                         {memberOpen && (
                                         <div className="absolute right-0 mt-3 w-40 rounded-lg border bg-white shadow-lg overflow-hidden">
-                                            <Link to="/login" onClick={() => setMemberOpen(false)}
-                                            className="block px-4 py-2 text-sm transition hover:bg-cyan-400 hover:text-white">
-                                                Login
-                                            </Link>
+                                           {!user ? (
+                                            <>
+                                                <Link to="/login" onClick={() => setMemberOpen(false)}
+                                                    className="block px-4 py-2 text-sm transition hover:bg-cyan-400 hover:text-white">
+                                                        Login
+                                                </Link>
 
-                                            <Link to="/signup" onClick={() => setMemberOpen(false)}
-                                            className="block px-4 py-2 text-sm transition hover:bg-cyan-400 hover:text-white">
-                                                Sign Up
-                                            </Link>
+                                                <Link to="/signup" onClick={() => setMemberOpen(false)}
+                                                    className="block px-4 py-2 text-sm transition hover:bg-cyan-400 hover:text-white">
+                                                        Sign Up
+                                                </Link>
+                                            </>
+                                           ) : (
+                                            <>
+                                                <div className="flex md:flex-col justify-center items-center">
+                                                    {user && (
+                                                    <span className="text-gray-700 font-medium p-2">
+                                                       👋 Hello, {userData?.name || "Loading..."}
+                                                    </span>
+                                                    )}
+                                                    <Link to="/logindashboard"
+                                                        className="block px-4 py-2 
+                                                        text-sm transition 
+                                                        hover:bg-cyan-600 hover:text-white hover:w-40 text-center
+                                                        rounded-lg">
+                                                        My Dashboard
+                                                    </Link>
+                                                    <button onClick={handleLogout} 
+                                                        className="px-6 py-2 
+                                                        bg-red-700 text-white rounded-lg 
+                                                        hover:bg-red-600 
+                                                        transition cursor-pointer 
+                                                        w-40">
+                                                        Logout
+                                                    </button>
+                                                </div>
+                                            </>
+                                           )}
                                         </div>
                                         )}
                                 </div>
@@ -109,12 +165,53 @@ export default function Navbar () {
                                 </Link>
                             ))}
 
-                            {/**Mobile member actions */}
+                            {/**Mobile member icon actions */}
                             <div className="pt-3 border-t">
-                                <Link to="/login" onClick={() => setOpen(false)} 
-                                                  className="block text-sm py-2 transition hover:bg-cyan-400 hover:text-white">Login</Link>
-                                <Link to="/signup" onClick={() => setOpen(false)} 
-                                                  className="block text-sm py-2 transition hover:bg-cyan-400 hover:text-white">Sign Up</Link>
+                                    {open && (
+                                        <div className="mt-2 
+                                                        rounded-lg 
+                                                        overflow-hidden
+                                                        text-sm">
+                                           {/**If user is not logged-in */}
+                                           {!user ? (
+                                            <>
+                                                <Link to="/login" onClick={() => setOpen(false)}
+                                                    className="block py-2 text-sm transition hover:bg-cyan-600 hover:text-white">
+                                                        Login
+                                                </Link>
+                                                <Link to="/signup" onClick={() => setOpen(false)}
+                                                    className="block py-2 text-sm transition hover:bg-cyan-600 hover:text-white">
+                                                        Sign Up
+                                                </Link>
+                                            </>
+                                           ) : (
+                                            <>
+                                                <div className="flex flex-col">
+                                                    {user && (
+                                                    <span className="text-gray-700 font-medium py-2">
+                                                       👋 Hello, {userData?.name || "Loading..."}
+                                                    </span>
+                                                    )}
+                                                    <Link to="/logindashboard"
+                                                        className="py-2 
+                                                        text-sm transition 
+                                                        hover:bg-cyan-600 hover:text-white w-30
+                                                        rounded-lg">
+                                                        My Dashboard
+                                                    </Link>
+                                                    <button onClick={handleLogout} 
+                                                        className="py-2 
+                                                        bg-red-700 text-white rounded-lg 
+                                                        hover:bg-red-600 
+                                                        transition cursor-pointer 
+                                                        w-30">
+                                                        Logout
+                                                    </button>
+                                                </div>
+                                            </>
+                                           )}
+                                        </div>
+                                    )}
                             </div>
                         </div>
                     )}

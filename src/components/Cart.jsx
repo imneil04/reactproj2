@@ -2,11 +2,16 @@ import { useState } from "react";
 import { useCart } from "../context/CartContext";
 import CartItem from "../components/CartItem";
 import ConfirmModal from "../components/ConfirmationModal";
+import { collection, addDoc } from "firebase/firestore";
+import { db, auth } from "../js/firebase";
+import { useNavigate } from "react-router-dom";
 
 export default function Cart() {
     const { cart, clearCart } = useCart();
     
     //const cartItems = Object.values(cart);
+    //for redirect
+    const navigate = useNavigate();
 
     //for pre-modal confirmation (pre-check order submission)
     const [ showConfirm, setShowConfirm ] = useState(false);
@@ -21,16 +26,54 @@ export default function Cart() {
     //overall total
     const total = (subtotal + subTax);
 
-    const confirmOrder = () => {
-        clearCart();
-        setShowConfirm(false);
-        setSuccess(true);
+    const user = auth.currentUser; 
+
+    //modified to include async for firestore
+    const confirmOrder = async () => {
+        
+        try {
+            //check to ensure users must login, before allowing place an order
+            if (!user) {
+
+                alert("user not logged in. Please login first or create an account.✅");
+                return;
+            }
+            
+            //exclude image field
+            /*const cleanItems = cart.map(({ id, name, price, quantity }) => ({
+                id,
+                name,
+                price,
+                quantity
+            })); */
+             //exclude image field
+            const cleanItems = cart.map(({ image, ...rest}) => rest);
+
+            //save to firestore
+            await addDoc(collection(db, "users", user.uid, "orders"), {
+                items: cleanItems,
+                total,
+                createdAt: new Date()
+            });
+
+             clearCart();
+             setShowConfirm(false);
+             setSuccess(true);
+        }
+        catch (err) {
+            alert ("something went wrong." + err.message);
+        }
+
+        //clearCart();
+        //setShowConfirm(false);
+        //setSuccess(true);
     };
+
     //what to display or render
     return (
         <>
             <div className="max-w-xl mx-auto p-6">
-                <h1 className="text-2xl font-bold mt-15 mb-5">Your Order</h1>
+                <h1 className="text-2xl text-center font-bold mt-15 mb-10">Your Order</h1>
 
                 {cart.length === 0 && !success && (
                     <p>Your cart is looking empty.</p>
@@ -69,9 +112,12 @@ export default function Cart() {
                 )}
 
                 {success && (
-                    <p className="text-green-500 mt-4 text-center">
-                        Thank you for your order!
-                    </p>
+                    <>
+                        <p className="text-green-500 text-2xl mt-4 text-center">
+                        Thank you for your order! ✅
+                        </p>
+                        <p className="text-green-700 text-lg mt-4 text-center animate-pulse">Your order is now being prepared...</p>
+                    </>
                 )}
 
                 {showConfirm && (

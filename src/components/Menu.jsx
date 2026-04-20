@@ -21,7 +21,7 @@ export default function Menu () {
             <div className="max-w-7xl mx-auto px-6 py-5">
                 {/**Page Title */}
                 <div className="text-center mb-12">
-                    <h1 className="text-2xl font-bold mt-17">Our Menu</h1>
+                    <h1 className="text-2xl font-bold mt-17 animate-pulse">Our Menu</h1>
                     <p className="text-gray-600">
                         Choose from our fresh selections
                     </p>
