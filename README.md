@@ -19,10 +19,8 @@
 9. contact page allowing feedbacks
 
 #future scalability of the app
-1. localStorage feature
-2. order buttons within the home page main deals
-3. points feature
-4. server-side data management (account control)
-5. payment processing feature
-6. sign up page feature
-7. persistent cart per user login
+1. order buttons within the home page main deals
+2. points feature
+3. payment processing feature
+4. order status (pending/complete) indicators
+5. add favorites

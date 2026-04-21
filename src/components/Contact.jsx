@@ -90,7 +90,7 @@ export default function Contact () {
         }
         catch (err) {
             console.log(err.message);
-            alert("Something went wrong.");
+            alert("Sorry, only members or logged-in users can submit a feedback for now. 😊");
         }
 
         //handle submission (API, email service, etc.)
