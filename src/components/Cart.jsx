@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useCart } from "../context/CartContext";
 import CartItem from "../components/CartItem";
 import ConfirmModal from "../components/ConfirmationModal";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, updateDoc, increment, doc } from "firebase/firestore";
 import { db, auth } from "../js/firebase";
 import { useNavigate } from "react-router-dom";
 
@@ -27,6 +27,10 @@ export default function Cart() {
     const total = (subtotal + subTax);
 
     const user = auth.currentUser; 
+
+    //for points
+    const pointsEarned = Math.floor(total);
+
 
     //modified to include async for firestore
     const confirmOrder = async () => {
@@ -53,7 +57,13 @@ export default function Cart() {
             await addDoc(collection(db, "users", user.uid, "orders"), {
                 items: cleanItems,
                 total,
+                pointsEarned, //track points per order
                 createdAt: new Date()
+            });
+
+            //for member points tracker (earned per order)
+            await updateDoc(doc(db, "users", user.uid), {
+                points: increment(pointsEarned)
             });
 
              clearCart();
@@ -64,9 +74,6 @@ export default function Cart() {
             alert ("something went wrong." + err.message);
         }
 
-        //clearCart();
-        //setShowConfirm(false);
-        //setSuccess(true);
     };
 
     //what to display or render

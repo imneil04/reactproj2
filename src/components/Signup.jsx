@@ -102,14 +102,15 @@ export default function SignUp () {
                 //carry over cart
                 //await syncCartToUser(user, cart);
 
-                //2. save extra user data in Firestore
+                //2. save extra user data in Firestore and sets tier points default to 0
                 await setDoc(doc(db, "users", user.uid), {
                     name: formData.name,
                     email: formData.email,
                     phone: formData.phone,
                     address: formData.address,
                     notes: formData.notes,
-                    createdAt: new Date()
+                    createdAt: new Date(),
+                    points: 0
                 });
 
                 //alert("Sign up successful!"); //display status if success login
