@@ -2,6 +2,7 @@ import OrderHistory from "../components/OrderHistory";
 import { useAuth } from "../context/AuthContext";
 import { TIERS } from "../data/tiers";
 import { memberOffers } from "../data/memberOffers";
+import ProfileSection from "../components/ProfileSection";
 
 export default function LoginDashboard () {
     //const navigate = useNavigate();
@@ -127,9 +128,10 @@ export default function LoginDashboard () {
                                 max-h-[40vh] max-w-md
                                 mt-20
                                 ">
-                    <h2 className="text-lg font-semibold">
+                    <h2 className="text-lg text-cyan-600 font-semibold">
                         Edit profile <i className="fa-solid fa-circle-user"></i>
                     </h2>
+                    <ProfileSection />
                 </div>
 
            </div>
