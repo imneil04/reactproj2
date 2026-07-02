@@ -125,7 +125,7 @@ export default function LoginDashboard () {
 
                 {/**Edit profile info */}
                 <div className="bg-white p-4 rounded-xl shadow 
-                                max-h-[40vh] max-w-md
+                                max-h-[70vh] max-w-md
                                 mt-20
                                 ">
                     <h2 className="text-lg text-cyan-600 font-semibold">
