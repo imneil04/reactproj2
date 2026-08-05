@@ -7,6 +7,8 @@ import { db } from "../js/firebase";
 import { useCart } from "../context/CartContext";
 
 export default function SignUp () {
+
+    const registrationOpen = false; //flag to disable form input fields (for now)
     
     //manage state of how data is set
     const [ formData, setFormData ] = useState({
@@ -151,7 +153,16 @@ export default function SignUp () {
 
     return (
         <>
-            <div className="max-w-xl mx-auto p-6 bg-white rounded-2xl shadow-md mt-30 
+            <div className="w-80 mx-auto mt-20 rounded-2xl border border-cyan-200 bg-cyan-50 p-4">
+                <h3 className="font-semibold text-cyan-900">
+                    Registration Temporarily Unavailable
+                </h3>
+
+                <p className="mt-2 text-sm leading-6 text-slate-700">
+                    New account registration is currently disabled. Please check back soon.
+                </p>
+            </div>
+            <div className="max-w-xl mx-auto p-6 bg-white rounded-2xl shadow-md mt-20 
                       hover:outline-2 outline-cyan-500 
                       hover:shadow-2xl hover:-translate-y-1
                       transition-all duration-200 ease-out">
@@ -178,6 +189,7 @@ export default function SignUp () {
                                value={formData.name}
                                onChange={handleChange}
                                className="w-full mt-1 p-1 border rounded-lg"
+                               disabled={!registrationOpen}
                         />
                         {errors.name && (
                             <p className="text-sm text-red-500 mt-2">{errors.name}</p>
@@ -196,6 +208,7 @@ export default function SignUp () {
                                onChange={handleChange}
                                placeholder="(xxx) xxx-xxxx"
                                className="w-full mt-1 p-1 border rounded-lg"
+                               disabled={!registrationOpen}
                         />
                         {errors.phone && (
                             <p className="text-sm text-red-500 mt-2">{errors.phone}</p>
@@ -213,6 +226,7 @@ export default function SignUp () {
                                value={formData.email}
                                onChange={handleChange}
                                className="w-full mt-1 p-1 border rounded-lg"
+                               disabled={!registrationOpen}
                         />
                         {errors.email && (
                             <p className="text-sm text-red-500 mt-2">{errors.email}</p>
@@ -230,6 +244,7 @@ export default function SignUp () {
                                value={formData.password}
                                onChange={handleChange}
                                className="w-full mt-1 p-1 border rounded-lg"
+                               disabled={!registrationOpen}
                         />
                         {errors.password && (
                             <p className="text-sm text-red-500 mt-2">{errors.password}</p>
@@ -248,6 +263,7 @@ export default function SignUp () {
                                value={formData.address}
                                onChange={handleChange}
                                className="w-full mt-1 p-1 border rounded-lg"
+                               disabled={!registrationOpen}
                         />
                         {errors.address && (
                             <p className="text-sm text-red-500 mt-1">{errors.address}</p>
@@ -266,6 +282,7 @@ export default function SignUp () {
                                value={formData.notes}
                                onChange={handleChange}
                                className="w-full mt-1 border rounded-lg"
+                               disabled={!registrationOpen}
                         />
                     </div>
 
@@ -273,7 +290,7 @@ export default function SignUp () {
                     bg-black text-white 
                     py-2 rounded-lg 
                     hover:bg-emerald-500 
-                    transition cursor-pointer">
+                    transition cursor-pointer" disabled>
                         Submit
                     </button>
                 </form>
